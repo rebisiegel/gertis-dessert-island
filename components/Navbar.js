@@ -23,6 +23,7 @@ export default function Navbar() {
         <li><Link href="/katalogus" className="hover:text-blue-500">Katalógus</Link></li>
         <li><Link href="/rendeles" className="hover:text-blue-500">Rendelés</Link></li>
         <li><Link href="/kapcsolat" className="hover:text-blue-500">Kapcsolat</Link></li>
+        <li><Link href="/login" className="hover:text-blue-500">Bejelentkezés</Link></li>
       </ul>
     </nav>
   );
