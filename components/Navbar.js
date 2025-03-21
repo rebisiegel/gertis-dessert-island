@@ -2,29 +2,46 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar() {
+  
   return (
-    <nav className="bg-[#6CABCC] text-white py-1 px-6 flex justify-between items-center fixed top-0 w-full shadow-md z-50">
-      {/* Logó */}
-      <div className="flex items-center gap-2">
-        <Link href="/"><Image
-          src="/icon.png"
-          alt="Logo"
-          width={60}
-          height={60}
-          className="rounded-full"
-        />
+    <nav className="bg-white/90 backdrop-blur-md py-4 sticky top-0 z-50">
+      <div className="container mx-auto max-w-[1200px] flex items-center px-4">
+        <Link href="/" className="flex items-center">
+          <Image src="/icon.png" alt="Logo" width={170} height={150} />
         </Link>
-        <span className="text-2xl font-[Poppins, sans-serif] italic">Gerti&apos;s Dessert Island</span>
+        <div className="flex-1 flex justify-center space-x-8">
+          <Link
+            href="/"
+            className="text-[#4b778e] hover:text-[#89BBD6] transition-colors px-4 py-2 rounded-lg hover:bg-[#4b778e]/10"
+          >
+            Főoldal
+          </Link>
+          <Link
+            href="/katalogus"
+            className="text-[#4b778e] hover:text-[#89BBD6] transition-colors px-4 py-2 rounded-lg hover:bg-[#4b778e]/10"
+          >
+            Katalógus
+          </Link>
+          <Link
+            href="/rendeles"
+            className="text-[#4b778e] hover:text-[#89BBD6] transition-colors px-4 py-2 rounded-lg hover:bg-[#4b778e]/10"
+          >
+            Rendelés
+          </Link>
+          <Link
+            href="/kapcsolat"
+            className="text-[#4b778e] hover:text-[#89BBD6] transition-colors px-4 py-2 rounded-lg hover:bg-[#4b778e]/10"
+          >
+            Kapcsolat
+          </Link>
+          <Link
+            href="/auth/login"
+            className="text-[#4b778e] hover:text-[#89BBD6] transition-colors px-4 py-2 rounded-lg hover:bg-[#4b778e]/10"
+          >
+            Bejelentkezés
+          </Link>
+        </div>
       </div>
-
-      {/* Menü */}
-      <ul className="flex space-x-6 text-lg font-light">
-        <li><Link href="/" className="hover:text-blue-500">Kezdőlap</Link></li>
-        <li><Link href="/katalogus" className="hover:text-blue-500">Katalógus</Link></li>
-        <li><Link href="/rendeles" className="hover:text-blue-500">Rendelés</Link></li>
-        <li><Link href="/kapcsolat" className="hover:text-blue-500">Kapcsolat</Link></li>
-        <li><Link href="/login" className="hover:text-blue-500">Bejelentkezés</Link></li>
-      </ul>
     </nav>
   );
 }

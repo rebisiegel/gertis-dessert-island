@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Bromello&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dellamode&display=swap');
 
 :root {
   --background: #ffffff;
@@ -28,4 +30,9 @@ footer {
 main {
   padding-top: 3rem;
   flex-grow: 1;
+}
+
+
+.font-dellamode {
+  font-family: 'Dellamode', cursive;
 }
