@@ -33,9 +33,16 @@ export const signUp = async (data: SignUpData) => {
   return api.post('/auth/signup', data).then((res) => res.data);
 }
 
-export const logIn = async (credentials: LoginCredentials): Promise<LoginData> => {
+export const login = async (credentials: LoginCredentials): Promise<LoginData> => {
   return api.post('/auth/login', credentials).then((res) => res.data);
 }
 
+export const getCurrentUser = async (): Promise<User> => {
+  return api.get<User>('/auth/current').then((res) => res.data);
+}
+
+export const logout = () => {
+  return api.get('/auth/logout');
+};
 
 

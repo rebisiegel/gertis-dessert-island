@@ -1,78 +1,72 @@
 "use client";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { logIn } from "@/api/auth";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
+import { login as apiLogin } from "@/api/auth";
+import Link from "next/link";
 export default function LoginPage() {
-  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const router = useRouter();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
     try {
-      const formData = {
-        email: e.target.email.value,
-        password: e.target.password.value,
-      };
-
-      const response = await logIn(formData);
-
-      if (response.success) {
-        // Sikeres bejelentkezés után átirányítás a főoldalra
-        router.push("/");
-      }
+      const response = await apiLogin({ email, password });
+      login(response.user);
+      router.push("/");
     } catch (error) {
-      if (error.response?.data?.message) {
-        // Backend által küldött hibaüzenet
-        setError(error.response.data.message);
-      } else {
-        setError("Hibás email cím vagy jelszó");
-      }
-      console.error("Bejelentkezési hiba:", error.response?.data?.message || error.message);
+      setError("Hibás email cím vagy jelszó");
+      console.error("Bejelentkezési hiba:", error);
     }
   };
 
   return (
     <>
-      <div className="text-center mb-8">
+      <div className="text-center mb-6">
         <h2 className="text-2xl font-semibold text-[#4b778e] mb-2">
           Bejelentkezés
         </h2>
         <p className="text-gray-600">Üdvözöljük újra!</p>
       </div>
 
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          {error}
+        </div>
+      )}
+
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <input
             type="email"
-            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Email cím"
             className="w-full h-[50px] px-6 rounded-lg border border-[#89BBD6]/30 focus:border-[#4b778e] outline-none text-lg transition-colors bg-white/50"
             required
           />
         </div>
-
         <div>
           <input
             type="password"
-            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Jelszó"
             className="w-full h-[50px] px-6 rounded-lg border border-[#89BBD6]/30 focus:border-[#4b778e] outline-none text-lg transition-colors bg-white/50"
             required
           />
         </div>
-
         <button
           type="submit"
-          className="w-full h-[50px] rounded-lg relative overflow-hidden group"
+          className="w-full bg-[#4b778e] hover:bg-[#89BBD6] text-white font-medium py-3 px-4 rounded-lg transition-colors"
         >
-          <div className="absolute inset-0 w-full h-full transition-all duration-300 bg-gradient-to-r from-[#4b778e] via-[#89BBD6] to-[#4b778e] group-hover:opacity-90"></div>
-          <span className="relative text-white text-lg font-medium">
-            Bejelentkezés
-          </span>
+          Bejelentkezés
         </button>
       </form>
 
